@@ -31,7 +31,7 @@ def notify(incoming_message):
     my_num = os.environ.get("MY_NUMBER")
 
     if from_num != my_num:
-        msg = "New House message from {}: '{}'".format(from_num, incoming_message)
+        msg = "New House Appt message from {}: '{}'".format(from_num, incoming_message)
         client.api.account.messages.create(
             to=my_num,
             from_=os.environ["WTHIK_FROM"],
@@ -72,7 +72,7 @@ def where_is_she(service, calendar_id):
 
         event = futureEvents.get('items', [])[0]
         start = event['start'].get('dateTime', event['start'].get('date'))
-        msg = "Doesn't look like {} is currently traveling. {} next trip is to {} on {}".format(
+        msg = "Doesn't look like {} currently has appointments. {} next appointment is to {} on {}".format(
             app.config.get("TRAVELER"),
             app.config.get("PRONOUN"),
             event['summary'],
@@ -124,7 +124,7 @@ def travel_schedule(service, calendar_id):
 
 def help_response():
     resp = MessagingResponse()
-    msg = """Ask me "Where's {}?" to see my current whereabouts or "Schedule" to see what's coming up.""".format(
+    msg = """Ask me "Where's {}?" to see my current appointment or "Schedule" to see what's coming up.""".format(
         app.config.get("TRAVELER"),
         )
     resp.message(msg)
