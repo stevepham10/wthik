@@ -31,7 +31,7 @@ def notify(incoming_message):
     my_num = os.environ.get("MY_NUMBER")
 
     if from_num != my_num:
-        msg = "New WTHIK message from {}: '{}'".format(from_num, incoming_message)
+        msg = "New House message from {}: '{}'".format(from_num, incoming_message)
         client.api.account.messages.create(
             to=my_num,
             from_=os.environ["WTHIK_FROM"],
