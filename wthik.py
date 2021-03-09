@@ -40,7 +40,7 @@ def notify(incoming_message):
 
 def _subtract_one_day(date_str):
     # fix the off by one error, at least for US timezones
-    dt = datetime.strptime(date_str, "%Y-%m-%d")
+    dt = datetime.strptime(date_str, "%Y-%m-%d %H:%M")
     return dt - timedelta(days=1)
 
 
@@ -79,7 +79,7 @@ def where_is_she(service, calendar_id):
             start)
     else:
         event = currentlyTravelingTo[0]
-        end = _subtract_one_day(event['end'].get('dateTime', event['end'].get('date'))).strftime("%B %d, %Y")
+        end = _subtract_one_day(event['end'].get('dateTime', event['end'].get('date'))).strftime("%B %d, %Y %H:%M")
         msg = "{} is currently in {} until {}".format(
             app.config.get("TRAVELER"),
             event['summary'],
@@ -91,8 +91,8 @@ def where_is_she(service, calendar_id):
 
 
 def _event_info(event):
-    start = event['start'].get('date')
-    end = _subtract_one_day(event['end'].get('date')).strftime("%Y-%m-%d")
+    start = event['start'].get('date').strftime("%Y-%m-%d %H:%M")
+    end = _subtract_one_day(event['end'].get('date')).strftime("%Y-%m-%d %H:%M")
     summary = event['summary']
 
     return "{} from {} to {}".format(summary, start, end)
